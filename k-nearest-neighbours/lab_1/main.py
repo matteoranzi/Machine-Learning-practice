@@ -19,12 +19,12 @@ if __name__ == "__main__":
     # Sanity check: our implementation should match scikit-learn
     scratch_knn = KNNClassifier(k=5, p=2).fit(X_train, y_train).predict(X_test)
     sklearn_knn = KNeighborsClassifier(n_neighbors=5, p=2).fit(X_train, y_train).predict(X_test)
+    print("Agreement with sklearn: ", (scratch_knn == sklearn_knn).mean())  # ties may cause tiny differences in predictions, but should be very close to 1.0
 
-    print("Agreement with sklearn: ", (
-                scratch_knn == sklearn_knn).mean())  # ties may cause tiny differences in predictions, but should be very close to 1.0
 
     # Decision boundaries for different k
-    fig, axes = plt.subplots(3, 1, figsize=(5, 12))
+    # fig, axes = plt.subplots(3, 1, figsize=(5, 12)) # vertical
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5)) # horizontal
     xx, yy = np.meshgrid(
         np.linspace(X2[:, 0].min() - 0.5, X2[:, 0].max() + 0.5, 200),
         np.linspace(X2[:, 1].min() - 0.5, X2[:, 1].max() + 0.5, 200)
@@ -32,12 +32,15 @@ if __name__ == "__main__":
 
     grid = np.c_[xx.ravel(), yy.ravel()]
 
-    for ax, k in zip(axes, [1, 15, 60]):
-        model = KNNClassifier(k=k, p=2).fit(X_train, y_train)
+    minkowski_p = 2
+    for ax, k in zip(axes, [1, 15, 100]):
+        model = KNNClassifier(k=k, p=minkowski_p).fit(X_train, y_train)
         Z = model.predict(grid).reshape(xx.shape)
         ax.contourf(xx, yy, Z, alpha=0.3)
         ax.scatter(X_train[:, 0], X_train[:, 1], c=y_train, edgecolor="k")
-        ax.set_title(f"k = {k}")
+        ax.set_title(f"k = {k}, p = {minkowski_p}")
 
+    fig.suptitle("Decision boundaries of scratch k-NN classifier on Iris dataset (first two features) "
+                 "- Distance based tie-breaking", fontsize=16)
     plt.tight_layout()
     plt.show()

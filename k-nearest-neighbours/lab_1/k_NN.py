@@ -30,7 +30,14 @@ class KNNClassifier:
         D = self._distance(X)
 
         # Indices of the k smallest distances for each query
-        nn_idx = np.argpartition(D, self.k - 1, axis=1)[:, : self.k]
+        nn_idx = np.argpartition(D, self.k - 1, axis=1)[:, : self.k] # (n_query, k)
+
+        # Sort the k neighbours of each query by their distance (nearest first)
+        nn_dist = np.take_along_axis(D, nn_idx, axis=1) # (n_query, k)
+        order = np.argsort(nn_dist, axis=1, kind="stable") # "stable" to preserve the order of equal distances
+        nn_idx = np.take_along_axis(nn_idx, order, axis=1) # (n_query, k), sorted
+
+
         nn_labels = self.y_train[nn_idx]
 
         # Majority vote per query
