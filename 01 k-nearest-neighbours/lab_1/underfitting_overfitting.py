@@ -32,7 +32,9 @@ ax.axvline(k_best, ls="--", c="gray")
 ax.axvspan(ks.min(), k_best * 0.4, color="red", alpha=0.07, label="overfitting")
 ax.axvspan(k_best * 2.5, ks.max(), color="green", alpha=0.07, label="underfitting")
 ax.set_xlabel("k  (model complexity increases  →)"); ax.set_ylabel("accuracy")
-ax.legend(); plt.show()
+ax.legend()
+plt.suptitle("Overfitting & Underfitting - only ODD k")
+plt.show()
 
 
 
@@ -40,6 +42,8 @@ ax.legend(); plt.show()
 
 gap = tr_acc.mean(axis=1) - va_acc.mean(axis=1)
 plt.plot(ks, gap); plt.axhline(0, c="k", lw=0.5)
-plt.xlabel("k"); plt.ylabel("train acc - validation acc"); plt.show()
+plt.suptitle("Gap curve between train and validation accuracy - only ODD k")
+plt.xlabel("k"); plt.ylabel("train acc - validation acc")
+plt.show()
 
 # =====================================

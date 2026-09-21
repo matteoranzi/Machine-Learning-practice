@@ -142,6 +142,29 @@ _On rounded-discretized datasets, ties may still happen if the distance is the s
 
 ![k-nn_tie-breaking.png](lab_1/plots/k-nn_tie-breaking.png)
 
+#### 2. Metrics
+
+![k-nn_confusion-matrix.png](lab_1/plots/k-nn_confusion-matrix.png)
+
+![k-nn_overfitting-underfitting_EVEN-ODD.png](lab_1/plots/k-nn_overfitting-underfitting_EVEN-ODD.png)
+For a training query, the query point is in X_train, so its own nearest neighbour is itself at distance 0. The tie-break rule ("class of the nearest neighbour") therefore resolves every 
+train tie in favour of the point's own label.
+
+ The sawtooth is a measurement artifact, not a model property. The odd-k plot is the correct picture:
+![k-nn_overfitting-underfitting_ODD.png](lab_1/plots/k-nn_overfitting-underfitting_ODD.png)
+![k-nn_gap-curve.png](lab_1/plots/k-nn_gap-curve.png)
+
+![k-nn_learning-curve.png](lab_1/plots/k-nn_learning-curve.png)
+
+
+## Summary of what each plot diagnoses
+| Plot              | Question it answers                   | Overfitting looks like                             | Underfitting looks like               |
+|-------------------|---------------------------------------|----------------------------------------------------|---------------------------------------|
+| Validation curve  | Which $k$ is best?                    | High train, lower validation, wide gap (small $k$) | Both low and close (large $k$)        |
+| Gap curve         | How large is the gap?                 | Large positive gap                                 | Gap near 0 with low accuracy          |
+| Decision boundary | What does the model do geometrically? | Jagged islands around noise                        | Boundary too smoth, ignores structure | 
+| Learning curve    | Would more data help?                 | Persistent gap that shrinks with n                 | Both curves plateau low together      |
+
 ---
 
 # Appendix
