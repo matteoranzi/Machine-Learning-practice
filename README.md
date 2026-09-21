@@ -6,13 +6,13 @@ _(Ongoing maintenance)_
 
 
 # Topics List
-- [01 Decision Trees](01%20Decision%20Trees) **TODO**
-- [02) k-Nearest Neighbours](02%20k-nearest-neighbours) **TO BE COMPLETED**
-- [03 Principal Component Analysis](03%20Principal%20Component%20Analysis) **TODO**
+1. [Decision Trees](01%20Decision%20Trees) **TODO**
+2. [k-Nearest Neighbours](02%20k-nearest-neighbours) **TO BE COMPLETED**
+3. [Principal Component Analysis](03%20Principal%20Component%20Analysis) **TODO**
 
 ### Topics Content
 
-#### 02) k-Nearest Neighbours
+#### $k$-Nearest Neighbours
 | Part | Topic                                                                               | Coding-Style                   |
 |------|-------------------------------------------------------------------------------------|--------------------------------|
 | 1    | 1-NN, Voronoi, k-NN classification/regression, Minkowski                            | From-scratch                   |
