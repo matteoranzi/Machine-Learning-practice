@@ -24,6 +24,14 @@ _(Ongoing maintenance)_
 
 ---
 
-# References
+# Active References
 - [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
-- 
+- [Day 36: K-Nearest Neighbors (KNN) — Theory and Application](https://medium.com/@bhatadithya54764118/day-36-k-nearest-neighbors-knn-theory-and-application-5a1c149ace60)
+- [Wine dataset machine learning project](https://www.kaggle.com/code/cristianlapenta/wine-dataset-sklearn-machine-learning-project)
+### Datasets
+- [UCI Heart Disease Data - Kaggle](https://www.kaggle.com/datasets/redwankarimsony/heart-disease-data)
+
+---
+
+- [Mathematics in R Markdown](https://rpruim.github.io/s341/S19/from-class/MathinRmd.html)
+- [Math and Equations in Rmarkdown](https://www.rpubs.com/aaaaaa1234sta/1197405)
