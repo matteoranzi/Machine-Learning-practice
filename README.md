@@ -21,3 +21,9 @@ _(Ongoing maintenance)_
 | 4    | Exact search (brute force vs KD tree), approximate search (LSH, IVF, HNSW, PQ)      | Benchmarks, then FAISS/hnswlib |
 | 5    | Learning the distance (diagonal M, full M, metric learning), embeddings             | PyTorch                        |
 | 6    | Practical workflow on a Kaggle dataset, with a leakage-free pipeline                | scikit-learn                   |
+
+---
+
+# References
+- [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
+- 
