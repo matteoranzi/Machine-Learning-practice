@@ -1,3 +1,5 @@
+[//]: # ( ***<p style="text-align:center;"></p>***)
+
 # k-Nearest Neighbour
 
 ---
@@ -65,6 +67,47 @@ In NumPy that is `(y_pred = y_true).mean()`, because the comparison gibes a bool
 The important rule is to measure it on data the model did not use to fit.
 To get a trustworthy number (and error bars for the plot) use corss-validation rather than a single split.
 
+### The Effects of Dimensionality Curse in High Dimensional kNN Search
+The dimensionality curse in applied mathematics refers to the problem caused by the exponential increase in volume associated with adding extra dimensions to a mathematical space.\
+For example, consider a unit 1-dimensional interval with 100 evenly-spaced sample points, i.i., each point is 0.01 distance units away from its neighbors.
+An equivalent sampling of a 10-dimensional unit hypercube with a lattice with a spacing of 0.01 between adjacent points would require $10^{20}$ sample pointw: thus, in some sense,
+the 10-dimensional unit hypercube can be said to be a factor of $10^{18}$ "larger" than the unit 1-dimenional interval.
+
+### Effect of Distance Measures on K-Nearest Neighbour Classifier
+Varying distance measures in k-NN for computing distance between instances affect the classification accuracy.\
+Commonly used distance metrics are _Euclidean_, _Manhattan_, _Minkowski_ and _Mahalanobis_.
+
+> Distance measures applied on diverse datasets (varying in terms of the domain, number and types of features), produce different classification accuracy results;
+> **Mahalanobis distance performs better with more than 90% accuracy, than the Euclidean and other measures, on most datasets**.
+
+All nearest training instances in the original k-NN classification are given equal weightage despite their distance from the test instance.
+Thus, it makes the original uniform k-NN algorithm sensitive to the choice of the value of k.
+The low value of k makes it more prone to _overfitting_ because of noise in the training instances.
+**This uniform k-NN classifier may provide a false class category to test instances, where most of the training instances are far from the test instance**, and only a few are near it.
+Uniform k-NN classifier is refined by assigning high weights to neighbours nearer to the test instance and low weights to those far form the test instance.
+_It reduces the impact of $k$ on the classification results_.\
+The weight associated with $k$-nearest neighbours is used to do distance-weighted voting for predicting the class category of the test instance (this refined k-NN is a _weighted k-NN_).\
+The weight ($w_{i}$) for the training distance ($t_{i}$) is evaluated as the inverse of the square of distance $d(t_{new}, t_{i})$:
+
+ ***<p style="text-align:center;">$w_{i} = \frac{1}{d(t_{new}, t_{i})^{2}}$</p>***
+
+The main drawback concerning k-NN is selecting the appropriate value of $k$ for precise prediction of the category for new instances.
+Therefore, the accurate k-NN classification depends on the perfect distance-based measure.
+
+#### Mahalanobis distance 
+The Mahalanobis distance (MD) is the distance measure to find the distance between a tada instance and a distribution in a multidimensional space.
+It is a multidimensional generalization for measuring the standard deviations of the test instance $t_{new}$ from the mean of training instance distribution
+**Mahalanobis distance is preferred in cases where correlation exists among features of data instances**
+
+ ***<p style="text-align:center;">$d_{mb}(t_{new}, \overline{t})^{2} = (t_{new} - \overline{t})^{T} C^{-1} (t_{new} - \overline{t})$</p>***
+
+**Where:**
+- $t_{new}$: test instance with feature vector $(f_{i1}, f_{i2}, f_{i3}, ..., f_{in})$
+- $\overline{t}$: arithmetic mean of training instances having mean feature vector $(\overline{f_{1}}, \overline{f_{2}}, \overline{f_{3}}, ..., \overline{f_{n}})$.
+- $C^{-1}$: inverse covariance matrix of independent feature variables
+
+
+
 ---
 ## Lab 1
 Write k-NN from scratch and validate it against scikit-learn on Iris and visualize how $k$ changes the decision boundary.
@@ -101,6 +144,14 @@ _On rounded-discretized datasets, ties may still happen if the distance is the s
 
 ---
 
+# Appendix
+
+### Covariance Matrix vs Inverse Covariance Matrix (Precision Matrix)
+The **covariance matrix $\Sigma$** is used to _describe_ or _generate_ spread, while the **inverse $\Sigma^{-1}$** (**the precision matrix**)
+is used to _measure_ or _evaluate_ something relative to that spread
+
+---
+
 # References
 - [NumPy - numpy.argpartition](https://numpy.org/devdocs/reference/generated/numpy.argpartition.html)
 - [NumPy - numpy.meshgrid](https://numpy.org/devdocs/reference/generated/numpy.meshgrid.html)
@@ -112,4 +163,6 @@ _On rounded-discretized datasets, ties may still happen if the distance is the s
 - [Python Functions - zip](https://docs.python.org/3.3/library/functions.html#zipd)
 - [Scikit-learn - train_test_split](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)
 - [Scikit-learn - Iris dataset](https://scikit-learn.org/1.5/auto_examples/datasets/plot_iris_dataset.html)
-- [Matplotlib - matplotlib.pyplot.subplots](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html)
+- [Matplotlib - matplotlib.pyplot.subplots](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html) 
+- [Effect of Distance Measures on K-Nearest Neighbour Classifier](references/Effect%20of%20Distance%20Measures%20on%20K-Nearest%20Neighbour%20Classifier.pdf)
+- [The Effects of Dimensionality Curse in High Dimensional kNN Search](references/The%20Effects%20of%20Dimensionality%20Curse%20in%20High%20Dimensional%20kNN%20Search.pdf)
