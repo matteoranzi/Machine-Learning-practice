@@ -41,6 +41,30 @@ The reason why the Minkowski family is used is that it generalizes many distance
 > The metric is the real "model" in k-NN.
 > Different metrics encode different notions of similarity.
 
+#### From votes to probabilities
+$\hat{P}(c | x) = \frac{\sum_{i \in N_{k}(x)} 1[y_{i} = c]}{k}$ is the fraction of the k neighbours that belong to class $c$.
+It is a non-parametric estimate of the true posterior $P(c | x)$: the probability that a point at location $x$ has label $c$.
+
+Why it is a sensible estimate: if $k$ is small enough that the neighbourhood is tiny, $P(c | x)$ is roughly constant inside it,
+so neighbours behave like $k$ independent draws from a $Bernoulli(P(c | x))$ variable, and the sample mean estimates that probability.
+
+Two tensions follow directly:
+- **Small $k$**: neighbourhood is local (little bias), but the estimate is built from few samples (high variance, and coarse: only multiples of $1/k$ are possible)
+- **Large $k$**: smooth estimate, but the neighbourhood covers regions where $P(c | x)$ actually changes (bias).
+
+For large $n$ with $\lim_{k \to \infty}$ and $\lim_{\frac{k}{n} \to 0}$, 
+this estimator converges to the true posterior (the classic consistency result), 
+and the argmax rule then approaches the **Bayes classifier**, 
+the best possible classifier for the problem.
+
+#### Accuracy
+
+Accuracy is the fraction of test points whose predicted label equals the true label: $accuracy = \frac{\sum{1[\hat{y}_{j} = y_{j}]}}{m}$ \
+In NumPy that is `(y_pred = y_true).mean()`, because the comparison gibes a boolean array and the mean of booleans is the fraction of `True`.
+
+The important rule is to measure it on data the model did not use to fit.
+To get a trustworthy number (and error bars for the plot) use corss-validation rather than a single split.
+
 ---
 ## Lab 1
 Write k-NN from scratch and validate it against scikit-learn on Iris and visualize how $k$ changes the decision boundary.
@@ -83,6 +107,7 @@ _On rounded-discretized datasets, ties may still happen if the distance is the s
 - [NumPy - numpy.linspace](https://numpy.org/doc/stable/reference/generated/numpy.linspace.html)
 - [NumPy - numpy.ravel](https://numpy.org/doc/2.3/reference/generated/numpy.ravel.html)
 - [NumPy - numpy.c_](https://numpy.org/devdocs/reference/generated/numpy.c_.html)
+- [NumPy - ones_like](https://numpy.org/doc/stable/reference/generated/numpy.ones_like.html)
 - [Python Collections - Counter](https://docs.python.org/3/library/collections.html#collections.Counter)
 - [Python Functions - zip](https://docs.python.org/3.3/library/functions.html#zipd)
 - [Scikit-learn - train_test_split](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)

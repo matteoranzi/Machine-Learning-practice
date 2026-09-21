@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
 
 from k_NN import KNNClassifier
 
@@ -44,3 +46,31 @@ if __name__ == "__main__":
                  "- Distance based tie-breaking", fontsize=16)
     plt.tight_layout()
     plt.show()
+
+    # =====================================
+
+    model = KNNClassifier(k=5, p=2).fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    ConfusionMatrixDisplay(confusion_matrix(y_test, y_pred)).plot()
+    plt.suptitle("Confusion matrix of scratch k-NN classifier \non Iris dataset (first two features)", fontsize=12)
+    plt.show()
+
+    # =====================================
+
+    ks = range(1, 101)
+    train_acc, val_acc = [], []
+    for k in ks:
+        m = KNNClassifier(k=k).fit(X_train, y_train)
+        train_acc.append((m.predict(X_train) == y_train).mean())
+        val_acc.append((m.predict(X_test) == y_test).mean())
+
+    plt.plot(ks, train_acc, label="train")
+    plt.plot(ks, val_acc, label="validation")
+    plt.xlabel("k")
+    plt.ylabel("accuracy")
+    plt.legend()
+    plt.suptitle("Training Accuracy vs Validation Accuracy of scratch k-NN classifier \non Iris dataset (first two features)", fontsize=12)
+    plt.show()
+
+
+
